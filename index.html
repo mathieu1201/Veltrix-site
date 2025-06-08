@@ -9,12 +9,32 @@
     img { max-width: 150px; margin-top: 20px; }
     a { color: #00ffff; text-decoration: none; font-size: 1.1em; }
     .btn { display: inline-block; padding: 10px 20px; background: #00ffff; color: black; border-radius: 5px; margin-top: 20px; }
+    #wallet-address { margin-top: 15px; font-size: 0.9em; color: #ccc; }
   </style>
 </head>
 <body>
   <h1>Bienvenue sur Veltrix (VLX)</h1>
   <p>Découvrez notre cryptomonnaie sécurisée, rapide et équitable.</p>
   <img src="logo_veltrix.png" alt="Logo Veltrix" />
+
   <p><a class="btn" href="Veltrix_Whitepaper_Light.pdf" target="_blank">📄 Lire le Whitepaper</a></p>
+
+  <button class="btn" onclick="connectWallet()">🔗 Connecter MetaMask</button>
+  <div id="wallet-address"></div>
+
+  <script>
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          document.getElementById('wallet-address').innerText = '✅ Connecté : ' + accounts[0];
+        } catch (error) {
+          document.getElementById('wallet-address').innerText = '❌ Connexion refusée.';
+        }
+      } else {
+        alert('🦊 Veuillez installer MetaMask pour utiliser cette fonction.');
+      }
+    }
+  </script>
 </body>
 </html>
